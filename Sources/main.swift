@@ -1,5 +1,7 @@
 import HTTPServer
 
+let arguments = try Configuration.commandLineArguments()
+let port = arguments["port"].int ?? 8080
 let log = LogMiddleware()
 
 let router = BasicRouter { route in
@@ -8,5 +10,5 @@ let router = BasicRouter { route in
     }
 }
 
-let server = try Server(port: 8080, middleware: [log], responder: router)
+let server = try Server(port: port, middleware: [log], responder: router)
 try server.start()
